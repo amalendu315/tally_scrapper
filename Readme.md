@@ -20,7 +20,7 @@ This project provides a Node.js API that automates the process of pre-filling le
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/tally-autofill-api.git`
+1. Clone the repository: `git clone https://github.com/amalendu315/tally_scrapper.git`
 2. Install dependencies: `npm install`
 3. Configure environment variables (see below).
 4. Build the project: `npm run build`
