@@ -8,43 +8,38 @@ import { extractErrorsFromXml, logErrorsToFile } from "../utils/errors";
 export const scrapeAndSendToTallyHandler = async (req:Request, res:Response) => {
     try {
       const body = req.body;
+      const results = [];
       //Generate Tall XML
-      const tallyXML = generateTallyXML(body);
+      for (const voucherData of body.data) {
+        const tallyXml = generateTallyXML(voucherData);
 
-       const response = await axios.post(
-         "http://localhost:9000",
-         tallyXML,
-         {
-           headers: {
-             "Content-Type": "application/xml",
-           },
-         }
-       );
+        const response = await axios.post("http://localhost:9000", tallyXml, {
+          headers: {
+            "Content-Type": "application/xml",
+          },
+        });
 
         if (response.status === 200) {
-          // Parse the XML response from Tally
           const responseXml = response.data;
-          // Extract error information from the XML (example)
           const errors = extractErrorsFromXml(responseXml);
 
           if (errors.length > 0) {
-            // Log the errors to a separate file
             logErrorsToFile(errors);
-
-            // Optionally, return an error response to the API user
-            res
-              .status(400)
-              .json({ error: "Tally import failed", details: errors });
+            results.push({ voucher: voucherData, status: "failed", errors });
           } else {
-            res.json({ message: "Data imported to Tally!" });
+            results.push({ voucher: voucherData, status: "success" });
           }
         } else {
-          // Handle other HTTP errors from Tally
           console.error("Tally HTTP error:", response.status, response.data);
-          res.status(500).json({ error: "Tally import failed" });
+          results.push({
+            voucher: voucherData,
+            status: "failed",
+            errors: ["Tally HTTP error: " + response.status],
+          });
         }
+      }
 
-      // Set the Content-Type header to 'application/xml'
+      res.json(results);
       
     } catch (error:any) {
         console.error("Error in Scrape and Send to TALLY Handler",error?.message);

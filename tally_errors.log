@@ -4,3 +4,12 @@ Could not set 'SVCurrentCompany' to 'AIRIQ'
 [2024-11-13T05:55:51.361Z] Tally Import Errors:
 Ledger 'LYFTY TRAVELS' does not exist!
 
+[2024-11-13T06:59:24.327Z] Tally Import Errors:
+Ledger 'LYFTY TRAVELS' does not exist!
+
+[2024-11-13T07:00:03.429Z] Tally Import Errors:
+Voucher totals do not match! Dr: 4,454.00 Dr Cr: 4,252.00 Cr Diff: 202.00 Dr
+
+[2024-11-13T07:00:06.198Z] Tally Import Errors:
+Voucher totals do not match! Dr: 4,454.00 Dr Cr: 4,252.00 Cr Diff: 202.00 Dr
+

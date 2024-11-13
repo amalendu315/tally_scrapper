@@ -1,7 +1,6 @@
-import { InputData, LedgerAllocation } from "../types";
+import { InputData, LedgerAllocation, Voucher } from "../types";
 
-export const generateTallyXML = (jsonData:InputData) => {
-  const data = jsonData.data[0];
+export const generateTallyXML = (data:Voucher) => {
   // Create the XML string
   const xmlString = `
     <ENVELOPE>
