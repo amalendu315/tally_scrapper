@@ -1,12 +1,12 @@
 interface LedgerAllocation {
     lineno:number;
-    ledgername:string;
+    ledgerName:string;
     amount:string;
     drCr: 'dr' | 'cr';
 };
 
 interface Voucher {
-    branchname:string;
+    branchName:string;
     vouchertype:string;
     voucherno:string;
     voucherdate:string;
