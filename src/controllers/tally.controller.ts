@@ -10,14 +10,18 @@ export const scrapeAndSendToTallyHandler = async (req:Request, res:Response) => 
       const body = req.body;
       const results = [];
       //Generate Tall XML
-      for (const voucherData of body.data) {
+      for (const voucherData of body?.data) {
         const tallyXml = generateTallyXML(voucherData);
 
-        const response = await axios.post("http://localhost:9000", tallyXml, {
-          headers: {
-            "Content-Type": "application/xml",
-          },
-        });
+        const response = await axios.post(
+          "https://saleszing.info/saleszingexchange/uat/aq/vouchers.php",
+          voucherData,
+          {
+            headers: {
+              AuthToken: "6719dabc927fd",
+            },
+          }
+        );
 
         if (response.status === 200) {
           const responseXml = response.data;
